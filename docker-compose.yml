@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  psql:
+    container_name: psql_server
+    image: postgres:16.1
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    ports:
+      - "5432:5432"
