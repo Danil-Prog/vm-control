@@ -1,0 +1,4 @@
+rootProject.name = 'vm-control-backend'
+
+include 'gateway'
+include 'user-service'
