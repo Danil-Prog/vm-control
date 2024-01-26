@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.baseInput {
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid #cbcbcb;
+  outline: none;
+  transition: all .2s ease-in-out;
+
+  &:focus {
+    border: 2px solid #ffa05c;
+  }
+
+}
