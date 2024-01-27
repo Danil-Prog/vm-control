@@ -1,0 +1,12 @@
+@import "../../../styles/index.scss";
+
+.baseButton {
+  padding: 7px 30px 7px 30px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: $primary_color;
+  }
+}
