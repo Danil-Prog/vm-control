@@ -1,4 +1,4 @@
-rootProject.name = 'vm-control-backend'
+rootProject.name = "backend"
 
-include 'gateway'
-include 'user-service'
+include(":gateway", ":user-service", ":ssh-service")
+

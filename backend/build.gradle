@@ -1,0 +1,19 @@
+plugins {
+    id 'com.google.cloud.tools.jib' version '3.4.0' apply false
+}
+
+subprojects {
+    tasks.register('wrapper', Wrapper) {
+        gradleVersion = '8.3'
+    }
+
+    tasks.register("prepareKotlinBuildScriptModel"){
+
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    layout.buildDirectory.set(new File(rootProject.buildDir, project.name))
+}

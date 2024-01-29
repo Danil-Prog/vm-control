@@ -10,3 +10,29 @@ services:
       POSTGRES_PASSWORD: "${DB_PASSWORD}"
     ports:
       - "5432:5432"
+
+# --------BACKEND_SERVICE--------
+  gateway:
+    container_name: backend_gateway
+    image: vm-control/gateway
+    ports:
+      - "8080:8080"
+    networks:
+      - vm-control
+
+  user-service:
+    container_name: user-service
+    image: vm-control/user-service
+    networks:
+      - vm-control
+
+  ssh-service:
+    container_name: ssh-service
+    image: vm-control/ssh-service
+    networks:
+      - vm-control
+# -------------------------------
+
+networks:
+  vm-control:
+    driver: bridge
