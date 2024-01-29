@@ -1,20 +1,28 @@
+@import "../../styles/index.scss";
+
 .container {
   display: flex;
-  justify-content: center;
+  flex: 1;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   padding-top: 50px;
+  background-color: $container;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 .formContainer {
   max-width: 600px;
   max-height: 400px;
   gap: 20px;
-  border-radius: 6px;
-  background-color: #cbcbcb;
+  border-radius: 2px;
+  background-color: $background;
   padding: 40px 40px 20px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
+
+::-webkit-scrollbar { display: none; }

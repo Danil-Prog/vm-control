@@ -6,7 +6,10 @@
   outline: none;
   border: none;
   cursor: pointer;
+  transition: all .2s ease-in-out;
+  background-color: $container;
   &:hover {
-    background-color: $primary_color;
+    background-color: $primary;
+    color: $text_light;
   }
 }
