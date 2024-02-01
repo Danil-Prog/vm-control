@@ -7,6 +7,7 @@ module.exports = {
 	output: {
 		filename: "bundle.[fullhash].js",
 		path: path.resolve(__dirname, "dist"),
+		publicPath: '/'
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -38,5 +39,8 @@ module.exports = {
 				use: ["file-loader"]
 			},
 		],
+	},
+	devServer: {
+		historyApiFallback: true,
 	},
 };
