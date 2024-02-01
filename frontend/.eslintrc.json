@@ -1,0 +1,17 @@
+// .eslintrc.json
+{
+  "settings": {
+      "import/parsers": {
+        "@typescript-eslint/parser": [
+          ".ts",
+          ".tsx"
+        ]
+    },
+    "import/resolver": {
+      "alias": {
+        "map": [["#components", "./src/components"]],
+        "extensions": [".ts", ".js", ".json"]
+      }
+    }
+  }
+}

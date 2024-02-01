@@ -1,5 +1,4 @@
-import BaseInput from "./components/ui/BaseInput/index.tsx";
-import AuthPage from "./pages/AuthPage/index.tsx";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
   return (

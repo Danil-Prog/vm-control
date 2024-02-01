@@ -1,6 +1,6 @@
-import BaseInput from "../../components/ui/BaseInput/index.tsx";
+import BaseInput from "~/components/ui/BaseInput";
 import styles from './AuthPage.module.scss'
-import BaseButton from "../../components/ui/BaseButton/index.tsx";
+import BaseButton from "~/components/ui/BaseButton";
 
 const AuthPage = () => {
     return (
