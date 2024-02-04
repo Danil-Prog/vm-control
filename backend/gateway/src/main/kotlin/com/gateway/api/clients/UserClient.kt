@@ -1,4 +1,4 @@
-package com.gateway.api.client
+package com.gateway.api.clients
 
 import com.gateway.api.model.User
 import org.springframework.stereotype.Service
@@ -8,9 +8,9 @@ import reactor.core.publisher.Mono
 @Service
 class UserClient(private val client: WebClient) {
 
-    fun getUserByUsername(username: String): Mono<User> {
+    fun findUserByUsername(username: String): Mono<User> {
         return client.get()
-            .uri("/username=$username")
+            .uri("/$username")
             .retrieve()
             .bodyToMono(User::class.java)
     }

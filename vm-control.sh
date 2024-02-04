@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Array microservices with package backend/*
-MODULES=("gateway" "user-service" "ssh-service")
+MODULES=("gateway" "user-service")
 ROOT_DIRECTORY="backend"
 
 help() {
@@ -20,7 +20,7 @@ help() {
 build() {
   echo 'Start build docker images...'
   for module in "${MODULES[@]}"; do
-      (cd $ROOT_DIRECTORY && gradle "$module":jibDockerBuild)
+      (cd $ROOT_DIRECTORY && gradle "$module":jibDockerBuild -Djib.to.tags=latest)
   done
   echo 'Build last docker images successfully!'
 }
