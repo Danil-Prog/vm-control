@@ -8,29 +8,42 @@ services:
       POSTGRES_DB: "${DB_NAME}"
       POSTGRES_USER: "${DB_USERNAME}"
       POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    networks:
+      - vm-control
     ports:
       - "5432:5432"
 
 # --------BACKEND_SERVICE--------
   gateway:
     container_name: backend_gateway
-    image: vm-control/gateway
+    image: vm-control/gateway:latest
+    environment:
+      gateway.jwt.secret: ${JWT_ACCESS_SECRET}
+      gateway.jwt.refresh: ${JWT_REFRESH_SECRET}
+      gateway.jwt.expiration_access_token_in_mills: ${JWT_EXPIRATION_ACCESS_TOKEN_IN_MILLS}
+      gateway.jwt.expiration_refresh_token_in_mills: ${JWT_EXPIRATION_REFRESH_TOKEN_IN_MILLS}
+      gateway.user_service.url: user-service
     ports:
       - "8080:8080"
     networks:
       - vm-control
+    links:
+      - "psql"
 
   user-service:
     container_name: user-service
-    image: vm-control/user-service
+    image: vm-control/user-service:latest
     networks:
       - vm-control
-
-  ssh-service:
-    container_name: ssh-service
-    image: vm-control/ssh-service
-    networks:
-      - vm-control
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://psql_server:5432/${DB_NAME}"
+      SPRING_DATASOURCE_USERNAME: "${DB_USERNAME}"
+      SPRING_DATASOURCE_PASSWORD: "${DB_PASSWORD}"
+    depends_on:
+     - psql
+    links:
+      - "psql"
+    restart: always
 # -------------------------------
 
 networks:
