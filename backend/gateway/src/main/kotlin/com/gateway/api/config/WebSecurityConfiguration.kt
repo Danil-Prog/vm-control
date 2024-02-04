@@ -90,6 +90,7 @@ class WebSecurityConfiguration(
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/")
             .allowedOrigins(URL)
+            .allowedMethods("*")
     }
 
     companion object {
