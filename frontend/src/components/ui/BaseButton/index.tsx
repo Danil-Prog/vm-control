@@ -1,16 +1,27 @@
-import styles from './baseButton.module.scss'
+import styles from './baseButton.module.scss';
 
 interface IBaseButton {
-    value: string;
-    name: string;
+  name?: string;
+  value: string;
+  onClick: (event: Event) => void;
+  type: 'submit' | 'button';
 }
 
 const BaseButton = (props: IBaseButton) => {
-    return (
-        <div>
-            <input className={styles.baseButton} type={'button'} value={props.value} name={props.name} />
-        </div>
-    )
-}
+  const handleClick = () => {
+    props.onClick;
+  };
+  return (
+    <div>
+      <input
+        className={styles.baseButton}
+        type={props.type}
+        value={props.value}
+        name={props.name}
+        onClick={handleClick}
+      />
+    </div>
+  );
+};
 
 export default BaseButton;

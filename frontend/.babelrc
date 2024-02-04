@@ -1,0 +1,22 @@
+{
+	"plugins": [
+		["module-resolver", {
+			"root": ["."],
+			"alias": {
+				"~": "~",
+				"underscore": "lodash"
+			}
+		}],
+		["@babel/plugin-proposal-class-properties", { "loose": false }]
+	],
+	"presets": [
+		"@babel/preset-env",
+		[
+			"@babel/preset-react",
+			{
+				"runtime": "automatic"
+			}
+		],
+		"@babel/preset-typescript"
+	]
+}
