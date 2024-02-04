@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { action, makeAutoObservable, observable } from 'mobx';
 import axios, { AxiosHeaders, InternalAxiosRequestConfig } from 'axios';
 import { REACT_APP_URL_API, ROUTE_PREFIX } from '~/core/config/api.config';
 
@@ -7,7 +7,7 @@ class AuthStore {
     makeAutoObservable(this);
   }
 
-  public isAuthenticated: boolean = false;
+  @observable isAuthenticated: boolean = false;
   public success_token: string = '123';
   public refresh_token: string;
   public loading: boolean = false;
@@ -28,11 +28,11 @@ class AuthStore {
     })
   };
 
-  public async authenticate(username: string, password: string) {
+  @action
+  async authenticate(username: string, password: string) {
     try {
       this.loading = true;
       console.log('logpass----->', username, password);
-      console.log('this.isAuthenticated----->1', this.isAuthenticated);
       // const response = await this.instance.post(
       // 	'authenticate',
       // 	{ username, password },
@@ -40,9 +40,7 @@ class AuthStore {
       // )
       if (username && password) {
         this.isAuthenticated = true;
-        console.log('this.isAuthenticated----->2', this.isAuthenticated);
       }
-      console.log('this.isAuthenticated----->3', this.isAuthenticated);
       // return response
     } catch (error) {
       console.log('*---authenticate', error);

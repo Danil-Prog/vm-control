@@ -13,12 +13,14 @@ const AuthPage = observer(() => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  React.useEffect(() => {
+    if (AuthStore.isAuthenticated) {
+      <Navigate to={'/'} />;
+    }
+  }, [AuthStore.isAuthenticated]);
   const signIn = async (username: string, password: string) => {
     try {
       await AuthStore.authenticate(username, password);
-      if (AuthStore.isAuthenticated) {
-        <Navigate to={'/'} />;
-      }
     } catch (error) {
       console.log('error----->', error);
     }
