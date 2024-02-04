@@ -33,11 +33,11 @@ class AuthStore {
     try {
       this.loading = true;
       console.log('logpass----->', username, password);
-      // const response = await this.instance.post(
-      // 	'authenticate',
-      // 	{ username, password },
-      // 	this.configContentType
-      // )
+      const response = await this.instance.post(
+        'login',
+        { username, password },
+        this.configContentType
+      );
       if (username && password) {
         this.isAuthenticated = true;
       }

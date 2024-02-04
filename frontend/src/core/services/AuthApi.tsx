@@ -2,7 +2,7 @@ import axios, { AxiosHeaders, InternalAxiosRequestConfig } from 'axios';
 import { REACT_APP_URL_API, ROUTE_PREFIX } from '~/core/config/api.config';
 
 export const userApi = {
-  authenticate,
+  login,
   signup,
   getProfile,
   getUserProfile,
@@ -15,9 +15,9 @@ const configContentType: InternalAxiosRequestConfig = {
   })
 };
 
-function authenticate(username: string, password: string) {
+function login(username: string, password: string) {
   return instance.post(
-    'authenticate',
+    'login',
     { username, password },
     configContentType
   );

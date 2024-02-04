@@ -7,6 +7,7 @@ import BaseButton from '~/components/ui/BaseButton';
 
 import styles from './AuthPage.module.scss';
 import AuthStore from '~/core/stores/Auth.store';
+import { userApi } from '~/core/services/AuthApi';
 
 
 const AuthPage = observer(() => {
@@ -20,7 +21,8 @@ const AuthPage = observer(() => {
   }, [AuthStore.isAuthenticated]);
   const signIn = async (username: string, password: string) => {
     try {
-      await AuthStore.authenticate(username, password);
+      await userApi.login(username, password);
+      // await AuthStore.authenticate(username, password);
     } catch (error) {
       console.log('error----->', error);
     }
