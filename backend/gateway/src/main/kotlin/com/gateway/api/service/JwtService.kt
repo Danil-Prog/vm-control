@@ -13,8 +13,8 @@ import java.util.Date
 class JwtService(
     @Value("\${gateway.jwt.secret}") val secret: String,
     @Value("\${gateway.jwt.refresh}") val refresh: String,
-    @Value("\${gateway.jwt.expiration_access_token_in_mills}") val expirationAccessToken: Int,
-    @Value("\${gateway.jwt.expiration_refresh_token_in_mills}") val expirationRefreshToken: Int
+    @Value("\${gateway.jwt.expiration_access_token_in_mills}") val expirationAccessToken: Long,
+    @Value("\${gateway.jwt.expiration_refresh_token_in_mills}") val expirationRefreshToken: Long
 ) {
 
 
@@ -43,7 +43,7 @@ class JwtService(
     fun getUsernameAccessToken(token: String): String = decodeAccessToken(token).subject
     fun getUsernameRefreshToken(token: String): String = decodeRefreshToken(token).subject
 
-    private fun generate(username: String, expirationInMillis: Int, roles: Array<String>, signature: String): String {
+    private fun generate(username: String, expirationInMillis: Long, roles: Array<String>, signature: String): String {
         return JWT.create()
             .withSubject(username)
             .withExpiresAt(Date(System.currentTimeMillis() + expirationInMillis))
