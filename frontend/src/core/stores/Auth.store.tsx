@@ -39,7 +39,7 @@ export default class AuthStore {
   async logout() {
     try {
       this.setLoading(true);
-      const response = await AuthService.logout();
+      await AuthService.logout();
       this.setAuth(false);
     } catch (error) {
       console.log('*---login', error);
@@ -51,7 +51,7 @@ export default class AuthStore {
   async checkAuth() {
     this.setLoading(true);
     try {
-      const response = await axios.get<AuthResponse>(`${REACT_APP_BASE_URL}/refresh`, { withCredentials: true });
+      await axios.get<AuthResponse>(`${REACT_APP_BASE_URL}/refresh`, { withCredentials: true });
     } catch (e) {
       console.log('*---checkAuth', e);
     } finally {
