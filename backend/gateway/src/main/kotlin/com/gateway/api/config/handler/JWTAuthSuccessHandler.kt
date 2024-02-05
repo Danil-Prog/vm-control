@@ -1,5 +1,6 @@
 package com.gateway.api.config.handler
 
+import com.gateway.api.exception.UnauthorizedRequestException
 import com.gateway.api.handlers.AuthHandler
 import com.gateway.api.response.AuthenticationResponse
 import com.gateway.api.service.JwtService
@@ -25,7 +26,7 @@ class JWTAuthSuccessHandler(private val jwtService: JwtService) : ServerAuthenti
         authentication: Authentication?
     ): Mono<Void> = mono {
         val principal =
-            authentication?.principal ?: throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized")
+            authentication?.principal ?: throw UnauthorizedRequestException("The user is not logged in")
 
         when (principal) {
             is User -> {
@@ -59,7 +60,7 @@ class JWTAuthSuccessHandler(private val jwtService: JwtService) : ServerAuthenti
                 exchange.response.writeWith(Mono.just(data)).block()
             }
 
-            else -> throw RuntimeException("Not user!")
+            else -> throw UnauthorizedRequestException("An error occurred while authenticating the user")
         }
 
         return@mono null
