@@ -1,5 +1,6 @@
 package com.gateway.api.handlers
 
+import com.gateway.api.exception.UnauthorizedRequestException
 import com.gateway.api.response.AuthenticationResponse
 import com.gateway.api.service.JwtService
 import com.gateway.api.utils.HttpConstants
@@ -17,7 +18,9 @@ import java.time.Duration
 class AuthHandler(private val logger: Logger, private val jwtService: JwtService) {
 
     suspend fun refreshAuthToken(request: ServerRequest): ServerResponse {
-        val refresh = request.cookies().getFirst(REFRESH_TOKEN)?.value ?: throw RuntimeException("Refresh token is missing request header ")
+        val refresh = request.cookies().getFirst(REFRESH_TOKEN)?.value
+            ?: throw UnauthorizedRequestException("Refresh token is missing request header ")
+
         val isValid = jwtService.valid(refresh)
 
         if (isValid) {
