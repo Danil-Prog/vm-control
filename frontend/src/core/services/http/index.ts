@@ -17,16 +17,19 @@ $api.interceptors.response.use((config) => {
   console.log(`<--- ${config.config.url}`, config.data);
   return config;
 }, async (error) => {
-  console.log(`<--- ${error.config.url}`, error);
+  console.error(`<--- ${error.config.url}`, error);
   const originalRequest = error.config;
   if (error.response.status == 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;
     try {
       const response = await axios.get<AuthResponse>(`${REACT_APP_BASE_URL}/refresh`, { withCredentials: true });
-      localStorage.setItem('token', response.data.access);
+      console.error('----------->', response.data.token);
+      debugger
+      localStorage.setItem('token', response.data.token);
       return $api.request(originalRequest);
     } catch (e) {
-      console.log('Не авторизован');
+      console.error('ЕСЛИ ПРОИЗОШЛА ОШИБКА ПРИ ГЕТ НА РЕФРЕШ', e);
+      localStorage.removeItem('token');
     }
   }
   throw error;

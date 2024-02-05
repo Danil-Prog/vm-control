@@ -32,7 +32,7 @@ export default class AuthStore {
       localStorage.setItem('token', response.data.token);
       this.setAuth(true);
     } catch (error) {
-      console.log('*---login', error);
+      console.error('*---login', error);
     } finally {
       this.setLoading(false);
     }
@@ -44,7 +44,7 @@ export default class AuthStore {
       await AuthService.logout();
       this.setAuth(false);
     } catch (error) {
-      console.log('*---login', error);
+      console.error('*---login', error);
     } finally {
       this.setLoading(false);
     }
@@ -53,9 +53,15 @@ export default class AuthStore {
   async checkAuth() {
     this.setLoading(true);
     try {
-      await axios.post<AuthResponse>(`${REACT_APP_BASE_URL}/refresh`, { withCredentials: true });
-    } catch (e) {
-      console.log('*---checkAuth', e);
+      const response = await axios.get<AuthResponse>(`${REACT_APP_BASE_URL}/auth/refresh`, { withCredentials: true });
+      localStorage.setItem('token', response.data.token);
+      this.setAuth(true);
+    } catch (error) {
+      if (error.response && error.response.status == 401) {
+        localStorage.removeItem('token');
+        this.setAuth(false);
+      }
+      console.error('*---checkAuth', error);
     } finally {
       this.setLoading(false);
     }
