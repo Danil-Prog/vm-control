@@ -1,5 +1,5 @@
 import styles from './baseInput.module.scss';
-import React, { FormEvent } from 'react';
+import React from 'react';
 
 interface IBaseInput {
   onChange: (value: string) => void;
