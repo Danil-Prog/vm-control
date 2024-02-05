@@ -45,7 +45,7 @@ const AuthPage = observer(() => {
         onSubmit={handleSubmit}
       >
         <BaseInput onChange={handleChangeUsername} name={'username'} />
-        <BaseInput onChange={handleChangePassword} name={'password'} />
+        <BaseInput onChange={handleChangePassword} name={'password'} type={'password'} />
         <BaseButton type={'submit'} value={'Вход'} onClick={handleSubmit} />
       </form>
     </div>
