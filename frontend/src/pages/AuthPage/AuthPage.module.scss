@@ -25,4 +25,13 @@
   flex-direction: column;
 }
 
-::-webkit-scrollbar { display: none; }
+.loader {
+  height: 95dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

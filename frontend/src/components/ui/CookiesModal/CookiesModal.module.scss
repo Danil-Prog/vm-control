@@ -1,0 +1,20 @@
+@import "../../../styles/index";
+
+.container {
+  background-color: $background;
+  padding: 30px;
+  width: 95dvw;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: $shadow_dark 5px 5px 10px;
+  position: fixed;
+  bottom: 5dvh;
+}
+
+.description {
+  font-family: sans-serif;
+  width: 85vw;
+}
