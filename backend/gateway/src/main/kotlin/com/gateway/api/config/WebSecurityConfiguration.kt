@@ -6,6 +6,7 @@ import com.gateway.api.config.jwt.JWTConverter
 import com.gateway.api.config.jwt.JWTTokenWebFilter
 import com.gateway.api.service.ExternalUserDetailsService
 import com.gateway.api.service.JwtService
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -35,7 +36,9 @@ import org.springframework.web.reactive.config.WebFluxConfigurer
 @EnableWebFlux
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-class WebSecurityConfiguration : WebFluxConfigurer {
+class WebSecurityConfiguration(
+    @Value("gateway.cors.allowed-origins") private val url: String
+) : WebFluxConfigurer {
 
     @Bean
     fun encoder(): PasswordEncoder = BCryptPasswordEncoder()
@@ -101,7 +104,7 @@ class WebSecurityConfiguration : WebFluxConfigurer {
     fun corsConfiguration(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
         configuration.allowCredentials = true
-        configuration.allowedOrigins = listOf("http://localhost:3000")
+        configuration.allowedOrigins = listOf(url)
         configuration.allowedMethods = listOf("*")
         configuration.allowedHeaders = listOf("Access-Control-Allow-Origin",
             "Authorization", "Content-Type")
