@@ -1,28 +1,22 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import BaseInput from '~/components/ui/BaseInput';
 import BaseButton from '~/components/ui/BaseButton';
 
 import styles from './AuthPage.module.scss';
-import AuthStore from '~/core/stores/Auth.store';
-import { userApi } from '~/core/services/AuthApi';
+import { Context } from '~/index';
+import { Navigate } from 'react-router-dom';
 
 
-const AuthPage = observer(() => {
+const AuthPage = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const { authStore } = useContext(Context);
 
-  React.useEffect(() => {
-    if (AuthStore.isAuthenticated) {
-      <Navigate to={'/'} />;
-    }
-  }, [AuthStore.isAuthenticated]);
   const signIn = async (username: string, password: string) => {
     try {
-      await userApi.login(username, password);
-      // await AuthStore.authenticate(username, password);
+      await authStore.login(username, password);
     } catch (error) {
       console.log('error----->', error);
     }
@@ -38,6 +32,14 @@ const AuthPage = observer(() => {
     await signIn(username, password);
   };
 
+  if (authStore.isAuthenticated || localStorage.getItem('token')) {
+    return <Navigate to={'/'} />;
+  }
+
+  if (authStore.isLoading) {
+    return <div>Загрузка...</div>;
+  }
+
   return (
     <div className={styles.container}>
       <form
@@ -45,11 +47,11 @@ const AuthPage = observer(() => {
         onSubmit={handleSubmit}
       >
         <BaseInput onChange={handleChangeUsername} name={'username'} />
-        <BaseInput onChange={handleChangePassword} name={'password'} />
+        <BaseInput onChange={handleChangePassword} name={'password'} type={'password'} />
         <BaseButton type={'submit'} value={'Вход'} onClick={handleSubmit} />
       </form>
     </div>
   );
-});
+};
 
-export default AuthPage;
+export default observer(AuthPage);

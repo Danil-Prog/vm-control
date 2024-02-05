@@ -6,9 +6,18 @@ import {
 import AuthPage from './pages/AuthPage';
 import HomePage from '~/pages/HomePage';
 import PrivateRoute from '~/routes/PrivateRoute';
+import React, { useContext } from 'react';
+import { Context } from '~/index';
+import { observer } from 'mobx-react-lite';
 
 
 function App() {
+  const { authStore } = useContext(Context);
+  React.useEffect(() => {
+    if (localStorage.getItem('token')) {
+      authStore.checkAuth();
+    }
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
@@ -21,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

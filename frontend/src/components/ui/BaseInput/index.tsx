@@ -1,11 +1,12 @@
 import styles from './baseInput.module.scss';
-import React, { FormEvent } from 'react';
+import React from 'react';
 
 interface IBaseInput {
   onChange: (value: string) => void;
   inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined;
   name: string;
   autoComplete?: string;
+  type?: string;
 }
 
 const BaseInput = (props: IBaseInput) => {
@@ -15,7 +16,7 @@ const BaseInput = (props: IBaseInput) => {
   return (
     <div className={styles.container}>
       <input
-        type={'text'}
+        type={props.type ?? 'text'}
         onChange={handleInputChange}
         inputMode={props.inputMode ?? 'text'}
         className={styles.baseInput}
