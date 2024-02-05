@@ -2,7 +2,6 @@
   "compilerOptions": {
     // Emit Configuration
     "noEmit": true,
-
     // Type Checking Configuration
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -22,27 +21,29 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "useUnknownInCatchVariables": true,
-
     // Modules Configuration
     "baseUrl": "./",
-    "module": "ES2022",
+    "module": "esnext",
     "moduleResolution": "node",
     "paths": {
-      "~/*": ["./src/*"],
+      "~/*": [
+        "./src/*"
+      ]
     },
-
     // Language and Environment Configuration
     "target": "ES2022",
     "jsx": "react-jsx",
-
     // JavaScript Support Configuration
     "allowJs": true,
     "checkJs": true,
-
     // Interop Constraints Configuration
     "esModuleInterop": true,
     "isolatedModules": true
   },
-  "include": ["src/**/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/**/**/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

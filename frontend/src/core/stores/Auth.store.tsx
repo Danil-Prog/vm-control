@@ -1,65 +1,62 @@
-import { action, makeAutoObservable, observable } from 'mobx';
-import axios, { AxiosHeaders, InternalAxiosRequestConfig } from 'axios';
-import { REACT_APP_URL_API, ROUTE_PREFIX } from '~/core/config/api.config';
+import { makeAutoObservable } from 'mobx';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '~/core/config/api.config';
+import AuthService from '~/core/services/AuthService';
+import { AuthResponse } from '~/core/models/response/AuthResponse';
 
-class AuthStore {
+export default class AuthStore {
+  success_token: string;
+  refresh_token: string;
+  isAuthenticated: boolean = false;
+  isLoading: boolean = false;
+
   constructor() {
     makeAutoObservable(this);
   }
 
-  @observable isAuthenticated: boolean = false;
-  public success_token: string = '123';
-  public refresh_token: string;
-  public loading: boolean = false;
+  setAuth(bool: boolean) {
+    this.isAuthenticated = bool;
+  }
 
-  public instance = axios.create({
-    baseURL: REACT_APP_URL_API
-  });
+  setLoading(bool: boolean) {
+    this.isLoading = bool;
+  }
 
-  public configContentType: InternalAxiosRequestConfig = {
-    headers: new AxiosHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-  public configAuthContentType: InternalAxiosRequestConfig = {
-    headers: new AxiosHeaders({
-      'Authorization': `Bearer ${this.success_token}`,
-      'Content-Type': 'application/json'
-    })
-  };
-
-  @action
-  async authenticate(username: string, password: string) {
+  async login(username: string, password: string) {
     try {
-      this.loading = true;
-      console.log('logpass----->', username, password);
-      const response = await this.instance.post(
-        'login',
-        { username, password },
-        this.configContentType
-      );
-      if (username && password) {
-        this.isAuthenticated = true;
-      }
-      // return response
+      this.setLoading(true);
+      const response = await AuthService.login(username, password);
+      console.log(response);
+      localStorage.setItem('token', response.data.token);
+      this.setAuth(true);
     } catch (error) {
-      console.log('*---authenticate', error);
+      console.log('*---login', error);
     } finally {
-      this.loading = false;
-      this.isAuthenticated = true;
+      this.setLoading(false);
     }
   }
 
-  public getProfile() {
-    return this.instance.get(`${ROUTE_PREFIX}/user`, this.configAuthContentType);
+  async logout() {
+    try {
+      this.setLoading(true);
+      const response = await AuthService.logout();
+      this.setAuth(false);
+    } catch (error) {
+      console.log('*---login', error);
+    } finally {
+      this.setLoading(false);
+    }
   }
 
-  public getUserProfile(id) {
-    return this.instance.get(`${ROUTE_PREFIX}/user/${id}`, this.configAuthContentType);
-  }
-
-  public changeUserData(user, id) {
-    return this.instance.put(`${ROUTE_PREFIX}/user/${id}`, user, this.configAuthContentType);
+  async checkAuth() {
+    this.setLoading(true);
+    try {
+      const response = await axios.get<AuthResponse>(`${REACT_APP_BASE_URL}/refresh`, { withCredentials: true });
+    } catch (e) {
+      console.log('*---checkAuth', e);
+    } finally {
+      this.setLoading(false);
+    }
   }
 
   public clearAll() {
@@ -67,10 +64,4 @@ class AuthStore {
     this.success_token = '';
     this.refresh_token = '';
   }
-
-  public logout() {
-    this.clearAll();
-  }
 }
-
-export default new AuthStore();
