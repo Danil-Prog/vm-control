@@ -10,6 +10,7 @@ help() {
   --build                   - (-b) build docker containers
   --recreate                - (-r) recreate docker containers
   --recreate 'service'      - recreate docker container by name
+  --pull-recreate           - pull from repository, build and recreate containers
   --stop                    - (-s) stop all containers
   --stop 'service'          - stop container by name
   --clean                   - (-c) clean all containers
@@ -26,6 +27,14 @@ build() {
 }
 
 recreate() {
+  echo 'Recreate docker containers...'
+  docker compose up -d --force-recreate
+}
+
+pull_recreate() {
+  echo 'Update project from repository...'
+  git pull
+  build
   echo 'Recreate docker containers...'
   docker compose up -d --force-recreate
 }
@@ -53,6 +62,9 @@ case $1 in
   ;;
 '--recreate'| '-r')
   recreate
+  ;;
+'--pull-recreate'| '-pr')
+  pull_recreate
   ;;
 '--stop'| '-s')
   stop
