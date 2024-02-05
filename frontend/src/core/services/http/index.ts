@@ -9,12 +9,15 @@ const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+  console.log(`---> ${config.url}`, config.headers);
   return config;
 });
 
 $api.interceptors.response.use((config) => {
+  console.log(`<--- ${config.config.url}`, config.data);
   return config;
 }, async (error) => {
+  console.log(`<--- ${error.config.url}`, error);
   const originalRequest = error.config;
   if (error.response.status == 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;

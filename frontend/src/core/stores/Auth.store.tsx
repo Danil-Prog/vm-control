@@ -29,7 +29,6 @@ export default class AuthStore {
     try {
       this.setLoading(true);
       const response = await AuthService.login(username, password);
-      console.log(response);
       localStorage.setItem('token', response.data.token);
       this.setAuth(true);
     } catch (error) {
@@ -54,7 +53,7 @@ export default class AuthStore {
   async checkAuth() {
     this.setLoading(true);
     try {
-      await axios.get<AuthResponse>(`${REACT_APP_BASE_URL}/refresh`, { withCredentials: true });
+      await axios.post<AuthResponse>(`${REACT_APP_BASE_URL}/refresh`, { withCredentials: true });
     } catch (e) {
       console.log('*---checkAuth', e);
     } finally {
