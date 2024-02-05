@@ -37,7 +37,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 class WebSecurityConfiguration(
-    @Value("gateway.cors.allowed-origins") private val url: String
+    @Value("\${gateway.cors.allowed-origins}") val url: String
 ) : WebFluxConfigurer {
 
     @Bean
