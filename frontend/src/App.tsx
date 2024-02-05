@@ -1,5 +1,5 @@
 import {
-  BrowserRouter,
+  BrowserRouter, Navigate,
   Route,
   Routes
 } from 'react-router-dom';
@@ -9,6 +9,8 @@ import PrivateRoute from '~/routes/PrivateRoute';
 import React, { useContext } from 'react';
 import { Context } from '~/index';
 import { observer } from 'mobx-react-lite';
+import ErrorPage from '~/pages/ErrorPage';
+import Header from '~/components/simple/Header/Header';
 
 
 function App() {
@@ -22,8 +24,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path={'/'} element={<Header />}>
+            <Route path={'/'} element={<PrivateRoute><HomePage /></PrivateRoute>} />
+          </Route>
           <Route path={'/login'} element={<AuthPage />} />
-          <Route path={'/'} element={<PrivateRoute><HomePage /></PrivateRoute>} />
+          <Route path={'*'} element={<Navigate to={'/'} />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -9,9 +9,6 @@ const HomePage = () => {
   const handleClick = () => {
     $api.get<AuthResponse>(`${ROUTE_PREFIX}/user/ew`);
   };
-  const handleClickLogout = () => {
-    localStorage.clear();
-  };
 
   return (
     <div>
@@ -19,7 +16,6 @@ const HomePage = () => {
         HomePage
       </div>
       <input type={'button'} onClick={handleClick} value={'Получить юзера'} />
-      <input type={'button'} onClick={handleClickLogout} value={'Выход'} />
     </div>
   );
 };

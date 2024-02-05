@@ -33,7 +33,7 @@ const AuthPage = () => {
   };
 
   if (authStore.isAuthenticated || localStorage.getItem('token')) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={'/'} replace />;
   }
 
   if (authStore.isLoading) {
