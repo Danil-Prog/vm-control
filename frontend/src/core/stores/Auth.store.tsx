@@ -11,6 +11,9 @@ export default class AuthStore {
   isLoading: boolean = false;
 
   constructor() {
+    if (localStorage.getItem('token')) {
+      this.setAuth(true);
+    }
     makeAutoObservable(this);
   }
 

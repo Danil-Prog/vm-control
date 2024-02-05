@@ -14,11 +14,6 @@ const AuthPage = () => {
   const [password, setPassword] = React.useState('');
   const { authStore } = useContext(Context);
 
-  React.useEffect(() => {
-    authStore.isAuthenticated ? <Navigate to={'/'} replace={true} /> : null;
-  }, [authStore.isAuthenticated]);
-
-
   const signIn = async (username: string, password: string) => {
     try {
       await authStore.login(username, password);
@@ -36,6 +31,10 @@ const AuthPage = () => {
     event.preventDefault();
     await signIn(username, password);
   };
+
+  if (authStore.isAuthenticated || localStorage.getItem('token')) {
+    return <Navigate to={'/'} />;
+  }
 
   if (authStore.isLoading) {
     return <div>Загрузка...</div>;
