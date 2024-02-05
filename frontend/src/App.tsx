@@ -9,7 +9,6 @@ import PrivateRoute from '~/routes/PrivateRoute';
 import React, { useContext } from 'react';
 import { Context } from '~/index';
 import { observer } from 'mobx-react-lite';
-import ErrorPage from '~/pages/ErrorPage';
 import Header from '~/components/simple/Header/Header';
 
 

@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import styles from './Header.module.scss';
-import BaseButton from '~/components/ui/BaseButton';
 import { Logout } from '~/components/icons/Logout';
 
 const Header = () => {
