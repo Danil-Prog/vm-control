@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { REACT_APP_BASE_URL } from '~/core/config/api.config';
 import { AuthResponse } from '~/core/models/response/AuthResponse';
+import { toast } from 'react-hot-toast';
 
 const $api = axios.create({
   withCredentials: true,
@@ -8,7 +9,9 @@ const $api = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+  if (localStorage.getItem('token')) {
+    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+  }
   console.log(`---> ${config.url}`, config.headers);
   return config;
 });
@@ -23,12 +26,10 @@ $api.interceptors.response.use((config) => {
     originalRequest._isRetry = true;
     try {
       const response = await axios.get<AuthResponse>(`${REACT_APP_BASE_URL}/refresh`, { withCredentials: true });
-      console.error('----------->', response.data.token);
-      debugger
       localStorage.setItem('token', response.data.token);
       return $api.request(originalRequest);
     } catch (e) {
-      console.error('ЕСЛИ ПРОИЗОШЛА ОШИБКА ПРИ ГЕТ НА РЕФРЕШ', e);
+      console.log(`<--- ${e}`);
       localStorage.removeItem('token');
     }
   }

@@ -7,6 +7,7 @@ interface IBaseInput {
   name: string;
   autoComplete?: string;
   type?: string;
+  title?: string;
 }
 
 const BaseInput = (props: IBaseInput) => {
@@ -15,6 +16,7 @@ const BaseInput = (props: IBaseInput) => {
   };
   return (
     <div className={styles.container}>
+      <label className={styles.title}>{props.title ?? ''}</label>
       <input
         type={props.type ?? 'text'}
         onChange={handleInputChange}
