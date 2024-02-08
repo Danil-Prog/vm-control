@@ -72,7 +72,5 @@ export default class AuthStore {
 
   public clearAll() {
     this.isAuthenticated = false;
-    this.success_token = '';
-    this.refresh_token = '';
   }
 }

@@ -9,9 +9,6 @@ import { Context } from '~/index';
 import { Navigate } from 'react-router-dom';
 import Loader from '~/components/ui/Loader';
 import CookiesModal from '~/components/ui/CookiesModal';
-import { ToastContainer } from 'react-toastify';
-import { toast, Toaster } from 'react-hot-toast';
-import { Colors } from '~/core/constants/Colors';
 
 const AuthPage = () => {
   const [username, setUsername] = React.useState('');
