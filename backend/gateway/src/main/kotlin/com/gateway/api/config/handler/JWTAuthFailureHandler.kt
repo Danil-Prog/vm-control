@@ -20,7 +20,7 @@ class JWTAuthFailureHandler : ServerAuthenticationFailureHandler {
     ): Mono<Void> = mono {
         val exchange = webFilterExchange?.exchange ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request")
 
-        log.error(" Oops, authorization handler failure..exception message: ${exception?.message}")
+        logger.error(" Oops, authorization handler failure..exception message: ${exception?.message}")
 
         with(exchange.response) {
             statusCode = HttpStatus.UNAUTHORIZED
@@ -28,8 +28,7 @@ class JWTAuthFailureHandler : ServerAuthenticationFailureHandler {
         }
     }
 
-
     companion object {
-        private val log = LoggerFactory.getLogger(this::class.java)
+        private val logger = LoggerFactory.getLogger(this::class.java)
     }
 }
