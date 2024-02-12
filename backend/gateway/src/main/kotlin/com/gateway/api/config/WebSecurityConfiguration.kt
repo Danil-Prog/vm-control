@@ -94,12 +94,6 @@ class WebSecurityConfiguration(
             setPasswordEncoder(passwordEncoder)
         }
 
-    override fun addCorsMappings(registry: CorsRegistry) {
-        registry.addMapping("/**")
-            .allowedOrigins("*")
-            .allowedMethods("*")
-    }
-
     @Bean
     fun corsConfiguration(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
@@ -108,16 +102,11 @@ class WebSecurityConfiguration(
         configuration.allowedMethods = listOf("*")
         configuration.allowedHeaders = listOf("Access-Control-Allow-Origin",
             "Authorization", "Content-Type")
-        configuration.allowCredentials = true
+
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
     }
-
-    @Bean
-    fun corsWebFilter(source: CorsConfigurationSource): CorsWebFilter =
-        CorsWebFilter(source)
-
 
     companion object {
         val EXCLUDED_PATH = arrayOf("/auth/refresh", "/", "/static/**", "/favicon.ico")
