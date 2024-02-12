@@ -9,7 +9,6 @@ interface ICookiesModal {
 
 const CookiesModal: React.FC<ICookiesModal> = ({ isModalCookie, setIsModalCookie }) => {
   React.useEffect(() => {
-    console.log(isModalCookie);
   }, [isModalCookie]);
 
   return (

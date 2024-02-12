@@ -1,10 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import styles from './Header.module.scss';
 import { Logout } from '~/components/icons/Logout';
+import { useContext } from 'react';
+import { Context } from '~/index';
 
 const Header = () => {
-  const handleClickLogout = () => {
-    localStorage.removeItem('token');
+  const { authStore } = useContext(Context);
+  const handleClickLogout = async () => {
+    await localStorage.removeItem('token');
+    await authStore.setAuth(false);
   };
 
   return (

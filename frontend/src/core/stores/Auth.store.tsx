@@ -3,10 +3,11 @@ import axios from 'axios';
 import { REACT_APP_BASE_URL } from '~/core/config/api.config';
 import AuthService from '~/core/services/AuthService';
 import { AuthResponse } from '~/core/models/response/AuthResponse';
+import { toast } from 'react-hot-toast';
 
 export default class AuthStore {
-  success_token: string;
-  refresh_token: string;
+  token: string;
+  refresh: string;
   isAuthenticated: boolean = false;
   isLoading: boolean = false;
 
@@ -29,10 +30,12 @@ export default class AuthStore {
     try {
       this.setLoading(true);
       const response = await AuthService.login(username, password);
-      localStorage.setItem('token', response.data.token);
-      this.setAuth(true);
+      await localStorage.setItem('token', response.data.token);
+      await this.setAuth(true);
+      toast.success(`Успешный вход`);
     } catch (error) {
       console.error('*---login', error);
+      toast.error(`${error}`);
     } finally {
       this.setLoading(false);
     }
@@ -69,7 +72,5 @@ export default class AuthStore {
 
   public clearAll() {
     this.isAuthenticated = false;
-    this.success_token = '';
-    this.refresh_token = '';
   }
 }

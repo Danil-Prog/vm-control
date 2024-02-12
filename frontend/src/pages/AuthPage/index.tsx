@@ -10,7 +10,6 @@ import { Navigate } from 'react-router-dom';
 import Loader from '~/components/ui/Loader';
 import CookiesModal from '~/components/ui/CookiesModal';
 
-
 const AuthPage = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -50,9 +49,10 @@ const AuthPage = () => {
       <form
         className={styles.formContainer}
       >
-        <BaseInput onChange={handleChangeUsername} name={'username'} />
-        <BaseInput onChange={handleChangePassword} name={'password'} type={'password'} />
+        <BaseInput onChange={handleChangeUsername} name={'username'} title={'username'} />
+        <BaseInput onChange={handleChangePassword} name={'password'} type={'password'} title={'password'} />
         <BaseButton type={'submit'} value={'Вход'} onClick={() => signIn(username, password)} />
+
       </form>
       {isModalCookie ?
         <CookiesModal isModalCookie={isModalCookie} setIsModalCookie={handleClickCookie} />
