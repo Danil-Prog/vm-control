@@ -1,4 +1,4 @@
 rootProject.name = "backend"
 
-include(":gateway", ":user-service")
+include(":gateway", ":user-service", ":eureka-server")
 

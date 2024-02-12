@@ -14,6 +14,17 @@ services:
       - "5432:5432"
 
 # --------BACKEND_SERVICE--------
+  eureka-server:
+    container_name: eureka_server
+    image: vm-control/eureka-server
+    environment:
+      eureka.client.service-url.defaultZone: "http://eureka-server:8761/eureka"
+    ports:
+      - "8761:8761"
+    hostname: eureka-server
+    networks:
+      - vm-control
+
   gateway:
     container_name: backend_gateway
     image: vm-control/gateway:latest
@@ -22,13 +33,12 @@ services:
       gateway.jwt.refresh: ${JWT_REFRESH_SECRET}
       gateway.jwt.expiration_access_token_in_mills: ${JWT_EXPIRATION_ACCESS_TOKEN_IN_MILLS}
       gateway.jwt.expiration_refresh_token_in_mills: ${JWT_EXPIRATION_REFRESH_TOKEN_IN_MILLS}
-      gateway.user_service.url: user-service
     ports:
       - "8080:8080"
     networks:
       - vm-control
     links:
-      - "psql"
+      - "eureka-server"
 
   user-service:
     container_name: user-service
@@ -43,6 +53,7 @@ services:
      - psql
     links:
       - "psql"
+      - "eureka-server"
     restart: always
 # -------------------------------
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Array microservices with package backend/*
-MODULES=("gateway" "user-service")
+MODULES=("gateway" "user-service" "eureka-server")
 ROOT_DIRECTORY="backend"
 
 help() {

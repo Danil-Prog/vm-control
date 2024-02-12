@@ -9,6 +9,9 @@ plugins {
 }
 
 dependencies {
+	/* Eureka client */
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0'
+
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation 'io.projectreactor.kotlin:reactor-kotlin-extensions'

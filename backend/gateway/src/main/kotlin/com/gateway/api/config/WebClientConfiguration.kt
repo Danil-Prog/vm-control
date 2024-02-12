@@ -15,6 +15,6 @@ class WebClientConfiguration(
 
     @Bean
     fun webClient() = WebClient.builder()
-        .baseUrl("http://$url:$port/$api")
+        .baseUrl("http://user-service:$port/$api")
         .build()
 }
