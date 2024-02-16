@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import AuthStore from '~/core/stores/Auth.store';

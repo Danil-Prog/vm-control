@@ -7,7 +7,7 @@ interface IHomePage {
 
 }
 
-const HomePage = () => {
+const HomePage: React.FC<IHomePage> = () => {
   React.useEffect(() => {
   }, [localStorage.getItem('token')]);
   const handleClick = () => {
