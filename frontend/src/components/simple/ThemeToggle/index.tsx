@@ -12,20 +12,33 @@ interface IThemeToggle {
 }
 
 const ThemeToggle: React.FC<IThemeToggle> = ({ themeStore }) => {
+  const [isChecked, setIsChecked] = React.useState(false);
 
-  const handleToggle = () => {
+  React.useEffect(() => {
+    if (localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark') {
+      setIsChecked(true);
+      themeStore.toggleTheme();
+    }
+  }, []);
+  React.useEffect(() => {
+  }, [isChecked]);
+
+  const handleToggle = (e) => {
+    localStorage.setItem('theme', themeStore.isDarkMode ? 'light' : 'dark');
+    setIsChecked(e.target.checked);
     themeStore.toggleTheme();
     document.body.dataset.theme = themeStore.isDarkMode ? 'dark' : 'light';
   };
 
   return (
     <div className={styles.container}>
-      <Moon />
+      <Sun />
       <label className={styles.switch}>
-        <input type="checkbox" onChange={handleToggle} />
+        <input type="checkbox" onChange={handleToggle}
+               checked={isChecked} />
         <span className={[styles.slider, styles.round].join(' ')}></span>
       </label>
-      <Sun />
+      <Moon />
     </div>
   );
 };

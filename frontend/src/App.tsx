@@ -20,7 +20,11 @@ interface IAppProps {
 const App: React.FC<IAppProps> = observer(({ authStore, themeStore }) => {
   React.useEffect(() => {
     // Установите тему по умолчанию при загрузке приложения
-    document.body.dataset.theme = themeStore.isDarkMode ? 'dark' : 'light';
+    if (localStorage.getItem('theme')?.length) {
+      document.body.dataset.theme = localStorage.getItem('theme');
+    } else {
+      document.body.dataset.theme = themeStore.isDarkMode ? 'dark' : 'light';
+    }
   }, []);
   React.useEffect(() => {
     if (localStorage.getItem('token')) {
