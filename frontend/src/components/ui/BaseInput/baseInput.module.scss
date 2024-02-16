@@ -1,5 +1,3 @@
-@import "../../../styles/index";
-
 .container {
   display: flex;
   flex-direction: column;
@@ -10,7 +8,7 @@
     font-size: .8em;
     font-family: sans-serif;
     border-radius: 10px;
-    color: $text_light;
+    color: var(--text_light);
   }
 
   .input:focus ~ .label, /* фокус на input */

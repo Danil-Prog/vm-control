@@ -6,16 +6,22 @@ import {
 import AuthPage from './pages/AuthPage';
 import HomePage from '~/pages/HomePage';
 import PrivateRoute from '~/routes/PrivateRoute';
-import React, { useContext } from 'react';
-import { Context } from '~/index';
+import React from 'react';
 import { observer } from 'mobx-react-lite';
-import Header from '~/components/simple/Header/Header';
 import { Toaster } from 'react-hot-toast';
 import { Colors } from '~/core/constants/Colors';
+import { inject } from 'mobx-react';
+import StaticElements from '~/components/simple/StaticElements';
+
+interface IAppProps {
+}
 
 
-function App() {
-  const { authStore } = useContext(Context);
+const App: React.FC<IAppProps> = observer(({ authStore, themeStore }) => {
+  React.useEffect(() => {
+    // Установите тему по умолчанию при загрузке приложения
+    document.body.dataset.theme = themeStore.isDarkMode ? 'dark' : 'light';
+  }, []);
   React.useEffect(() => {
     if (localStorage.getItem('token')) {
       authStore.checkAuth();
@@ -50,7 +56,7 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
-          <Route path={'/'} element={<Header />}>
+          <Route path={'/'} element={<StaticElements />}>
             <Route path={'/'} element={<PrivateRoute><HomePage /></PrivateRoute>} />
           </Route>
           <Route path={'/login'} element={<AuthPage />} />
@@ -59,6 +65,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
+});
 
-export default observer(App);
+export default inject('authStore', 'themeStore')(App);

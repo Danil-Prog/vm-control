@@ -3,6 +3,10 @@ import { AuthResponse } from '~/core/models/response/AuthResponse';
 import { ROUTE_PREFIX } from '~/core/config/api.config';
 import React from 'react';
 
+interface IHomePage {
+
+}
+
 const HomePage = () => {
   React.useEffect(() => {
   }, [localStorage.getItem('token')]);
@@ -11,10 +15,9 @@ const HomePage = () => {
   };
 
   return (
+
     <div>
-      <div style={{ height: 100, backgroundColor: '#000000' }}>
-        HomePage
-      </div>
+      HomePage
       <input type={'button'} onClick={handleClick} value={'Получить юзера'} />
     </div>
   );

@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import AuthStore from '~/core/stores/Auth.store';
+import { inject } from 'mobx-react';
 
-import { Context } from '~/index';
-
-function PrivateRoute({ children }) {
-  const { authStore } = useContext(Context);
-  return authStore.isAuthenticated ? children : <Navigate to="/login" />;
+interface IPrivateRoute {
+  children: any;
+  authStore: AuthStore;
 }
 
-export default observer(PrivateRoute);
+const PrivateRoute: React.FC<IPrivateRoute> = ({ children, authStore }) => {
+  return authStore.isAuthenticated ? children : <Navigate to="/login" />;
+};
+
+export default inject('authStore')(observer(PrivateRoute));

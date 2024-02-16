@@ -1,12 +1,22 @@
-$primary: #ED8D35;
-$background: #cbcbcb;
-$container: #ffffff;
-$container_dark: #3E3E3E;
-$text_light: #ffffff;
-$text_dark: #000000;
-$shadow_dark: rgba(0, 0, 0, 0.32);
+* {
+  transition: all ease-in-out .3s;
+}
+
+@keyframes fillColorChange {
+  0% {
+    fill: var(--container)
+  }
+  100% {
+    fill: var(--container)
+  }
+}
+
+svg {
+  animation: fillColorChange .3s ease-in-out forwards;
+}
 
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--background);
 }

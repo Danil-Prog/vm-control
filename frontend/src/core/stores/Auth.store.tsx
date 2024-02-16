@@ -5,7 +5,7 @@ import AuthService from '~/core/services/AuthService';
 import { AuthResponse } from '~/core/models/response/AuthResponse';
 import { toast } from 'react-hot-toast';
 
-export default class AuthStore {
+class AuthStore {
   token: string;
   refresh: string;
   isAuthenticated: boolean = false;
@@ -73,4 +73,9 @@ export default class AuthStore {
   public clearAll() {
     this.isAuthenticated = false;
   }
+}
+
+export default AuthStore;
+
+export interface IAuthStore extends AuthStore {
 }

@@ -8,18 +8,29 @@ const $api = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-  if (localStorage.getItem('token')) {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+  try {
+    if (config.headers['WWW-Authenticate']) {
+      delete config.headers['WWW-Authenticate'];
+    }
+    if (localStorage.getItem('token')) {
+      config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+    }
+    console.log(`---> ${config.url}`, config.headers);
+    return config;
+  } catch (e) {
+    console.log('ERROR', e);
   }
-  console.log(`---> ${config.url}`, config.headers);
-  return config;
+
 });
 
 $api.interceptors.response.use((config) => {
-  console.log(`<--- ${config.config.url}`, config.data);
+  console.log(`<---11111 ${config.config.url}`, config);
+  if (config.config.headers['WWW-Authenticate']) {
+    delete config.config.headers['WWW-Authenticate'];
+  }
   return config;
 }, async (error) => {
-  console.error(`<--- ${error.config.url}`, error);
+  console.error(`<---2222 ${error.config.url}`, error);
   const originalRequest = error.config;
   if (error.response.status == 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;

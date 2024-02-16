@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,700&display=swap');
+
+.container {
+  display: flex;
+  top: 0;
+  width: 100%;
+  height: 7dvh;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary);
+}
+
+.logo {
+  font-family: 'Roboto Flex', sans-serif;
+  display: flex;
+  margin-left: 30px;
+
+  .firstLetters {
+    color: var(--container);
+  }
+
+  .mainLetters {
+    color: var(--text-light);
+  }
+}
+
+.rightMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-right: 30px;
+}
+
+.logout {
+  cursor: pointer;
+
+  svg {
+    fill: var(--container);
+
+    &:active {
+      fill: var(--background);
+    }
+  }
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 1em;
+  }
+  .logout {
+    svg {
+      height: 1em;
+    }
+  }
+}
+
+/* Стили для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .logo {
+    font-size: 1.5em;
+  }
+  .logout {
+    svg {
+      height: 1.5em;
+    }
+  }
+}
+
+/* Стили для настольных компьютеров */
+@media (min-width: 1025px) {
+  .logo {
+    font-size: 2.5em;
+  }
+  .logout {
+    svg {
+      height: 2.5em;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .logo {
+    font-size: 3em;
+  }
+  .logout {
+    svg {
+      height: 3em;
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .logo {
+    font-size: 3.5em;
+  }
+  .logout {
+    svg {
+      height: 3.5em;
+    }
+  }
+}

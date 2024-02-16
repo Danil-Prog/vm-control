@@ -1,7 +1,6 @@
-@import "../../../styles/index";
 
 .container {
-  background-color: $background;
+  background-color: var(--background);
   padding: 30px;
   width: 95dvw;
   display: flex;
@@ -9,7 +8,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  box-shadow: $shadow_dark 5px 5px 10px;
+  box-shadow: var(--shadow_dark) 5px 5px 10px;
   position: fixed;
   bottom: 5dvh;
 }

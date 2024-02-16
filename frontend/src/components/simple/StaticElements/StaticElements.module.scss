@@ -1,0 +1,13 @@
+.mainContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 7px;
+  height: 100dvh
+}
+
+.secondContainer {
+  display: flex;
+  flex: 1;
+  gap: 7px;
+}

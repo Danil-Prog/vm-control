@@ -5,17 +5,21 @@ import BaseInput from '~/components/ui/BaseInput';
 import BaseButton from '~/components/ui/BaseButton';
 
 import styles from './AuthPage.module.scss';
-import { Context } from '~/index';
 import { Navigate } from 'react-router-dom';
 import Loader from '~/components/ui/Loader';
 import CookiesModal from '~/components/ui/CookiesModal';
+import AuthStore from '~/core/stores/Auth.store';
+import { inject } from 'mobx-react';
 
-const AuthPage = () => {
+interface IAuthPage {
+  authStore: AuthStore;
+}
+
+const AuthPage: React.FC<IAuthPage> = ({ authStore }) => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const initialCookie = !localStorage.getItem('access_cookie');
   const [isModalCookie, setIsModalCookie] = React.useState(initialCookie);
-  const { authStore } = useContext(Context);
 
   const signIn = async (username: string, password: string) => {
     try {
@@ -61,4 +65,4 @@ const AuthPage = () => {
   );
 };
 
-export default observer(AuthPage);
+export default inject('authStore')(observer(AuthPage));
