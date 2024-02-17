@@ -18,7 +18,7 @@ class UserHandler(private val client: UserClient) {
         val username = request.pathVariable("username")
         val result = withContext(Dispatchers.IO) {
             client.findUserByUsername(username).block()
-        } ?: RuntimeException("User not found")
-        return ServerResponse.ok().bodyValueAndAwait(result)
+        }
+        return ServerResponse.ok().bodyValueAndAwait(result!!)
     }
 }
