@@ -7,6 +7,5 @@ import org.springframework.boot.runApplication
 class GatewayApplication
 
 fun main(args: Array<String>) {
-	println("YES!")
 	runApplication<GatewayApplication>(*args)
 }
