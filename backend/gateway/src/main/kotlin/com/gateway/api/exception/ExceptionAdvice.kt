@@ -18,6 +18,11 @@ class ExceptionAdvice : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler
     fun handleUnauthorizedRequestException(exception: UnauthorizedRequestException): ResponseEntity<ResponseException> {
-        return ResponseEntity(ResponseException(exception.message!!), HttpStatus.UNAUTHORIZED)
+        return ResponseEntity(ResponseException(exception.message!!), HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler
+    fun handleClientException(exception: ClientException): ResponseEntity<ResponseException> {
+        return ResponseEntity(ResponseException(exception.message), HttpStatus.BAD_REQUEST)
     }
 }
