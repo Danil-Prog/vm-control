@@ -10,11 +10,12 @@ help() {
   --build                   - (-b) build docker containers
   --recreate                - (-r) recreate docker containers
   --recreate 'service'      - recreate docker container by name
-  --pull-recreate           - pull from repository, build and recreate containers
+  --pull-recreate           - (-pr) pull from repository, build and recreate containers
   --stop                    - (-s) stop all containers
   --stop 'service'          - stop container by name
   --clean                   - (-c) clean all containers
   --status                  - (-S) print status docker containers
+  --list                    - (-l) print list microservices
   """
 }
 
@@ -51,6 +52,10 @@ clean() {
 
 status() {
   echo 'Status docker containers...print'
+}
+
+list() {
+  echo ''
 }
 
 case $1 in
