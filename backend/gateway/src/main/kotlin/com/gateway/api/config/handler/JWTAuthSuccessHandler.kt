@@ -1,5 +1,6 @@
 package com.gateway.api.config.handler
 
+import com.gateway.api.exception.HttpExceptionFactory.unauthorized
 import com.gateway.api.exception.UnauthorizedRequestException
 import com.gateway.api.handlers.AuthHandler
 import com.gateway.api.response.AuthenticationResponse
@@ -26,7 +27,7 @@ class JWTAuthSuccessHandler(private val jwtService: JwtService) : ServerAuthenti
         authentication: Authentication?
     ): Mono<Void> = mono {
         val principal =
-            authentication?.principal ?: throw UnauthorizedRequestException("The user is not logged in")
+            authentication?.principal ?: throw unauthorized()
 
         when (principal) {
             is User -> {
@@ -35,10 +36,7 @@ class JWTAuthSuccessHandler(private val jwtService: JwtService) : ServerAuthenti
                 val accessToken = jwtService.accessToken(principal.username, roles)
                 val refreshToken = jwtService.refreshToken(principal.username, roles)
 
-                val exchange = webFilterExchange?.exchange ?: throw ResponseStatusException(
-                    HttpStatus.UNAUTHORIZED,
-                    "Unauthorized"
-                )
+                val exchange = webFilterExchange?.exchange ?: throw unauthorized()
 
                 val authenticationResponse = AuthenticationResponse(accessToken, refreshToken).toByteArray()
                 val data = exchange.response.bufferFactory().wrap(authenticationResponse)

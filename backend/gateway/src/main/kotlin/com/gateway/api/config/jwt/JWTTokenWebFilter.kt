@@ -19,10 +19,6 @@ class JWTTokenWebFilter(private val jwtService: JwtService) : WebFilter {
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         val token = exchange.jwtAccessToken() ?: return chain.filter(exchange)
 
-        if (token.contains("null")) {
-            return chain.filter(exchange).contextWrite(ReactiveSecurityContextHolder.clearContext())
-        }
-
         logger.info("Token: $token")
         try {
             val auth = UsernamePasswordAuthenticationToken(
