@@ -1,35 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-plugins {
-	id 'org.springframework.boot' version '3.2.1'
-	id 'io.spring.dependency-management' version '1.1.4'
-	id 'org.jetbrains.kotlin.jvm' version '1.9.21'
-	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.21'
-	id 'com.google.cloud.tools.jib'
-}
 
 dependencies {
-
-	/* Eureka client */
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0'
-
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
-	implementation 'io.projectreactor.kotlin:reactor-kotlin-extensions'
-	implementation 'org.jetbrains.kotlin:kotlin-reflect'
-	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
 
 	/* Security */
 	implementation group: 'com.auth0', name: 'java-jwt', version: '4.4.0'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-
-	/* Testing */
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
 }
 
 group = 'com.gateway.api'
-version = '0.0.1'
 
 tasks.withType(KotlinCompile).configureEach {
 	kotlinOptions {
@@ -37,9 +16,3 @@ tasks.withType(KotlinCompile).configureEach {
 		jvmTarget = '17'
 	}
 }
-
-tasks.named('test') {
-	useJUnitPlatform()
-}
-
-jib.to.image = 'vm-control/gateway'

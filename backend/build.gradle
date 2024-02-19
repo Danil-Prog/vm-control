@@ -1,8 +1,50 @@
+import java.time.Instant
+
 plugins {
     id 'com.google.cloud.tools.jib' version '3.4.0' apply false
+    id 'org.springframework.boot' version '3.2.1' apply false
+    id 'io.spring.dependency-management' version '1.1.4' apply false
+    id 'org.jetbrains.kotlin.jvm' version '1.9.21' apply false
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.9.21' apply false
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
 }
 
 subprojects {
+    layout.buildDirectory.set(new File(rootProject.buildDir, project.name))
+
+    apply {
+        plugin "com.google.cloud.tools.jib"
+        plugin "org.springframework.boot"
+        plugin "io.spring.dependency-management"
+        plugin "org.jetbrains.kotlin.jvm"
+        plugin "org.jetbrains.kotlin.plugin.spring"
+    }
+
+    if (this.name != "eureka-server") {
+        dependencies {
+            /* Eureka client */
+            implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0'
+
+            implementation 'org.springframework.boot:spring-boot-starter-webflux'
+            implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+            implementation 'io.projectreactor.kotlin:reactor-kotlin-extensions'
+            implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
+        }
+
+        tasks.named('test') {
+            useJUnitPlatform()
+        }
+    }
+    dependencies {
+        implementation 'org.jetbrains.kotlin:kotlin-reflect'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
+
     tasks.register('wrapper', Wrapper) {
         gradleVersion = '8.3'
     }
@@ -11,9 +53,18 @@ subprojects {
 
     }
 
-    repositories {
-        mavenCentral()
+    jib {
+        to {
+            image = "vm-control/${project.name}"
+            tags = HashSet.of("latest")
+        }
+
+        container.creationTime = Instant.now().toString()
     }
 
-    layout.buildDirectory.set(new File(rootProject.buildDir, project.name))
+    tasks.register("recreate") {
+        dependsOn(jibDockerBuild)
+    }
+
+    version = '0.0.1-developer'
 }
