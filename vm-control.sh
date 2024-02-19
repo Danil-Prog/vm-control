@@ -22,7 +22,7 @@ help() {
 build() {
   echo 'Start build docker images...'
   for module in "${MODULES[@]}"; do
-      (cd $ROOT_DIRECTORY && gradle "$module":jibDockerBuild -Djib.to.tags=latest)
+      (cd $ROOT_DIRECTORY && gradle "$module":jibDockerBuild)
   done
   echo 'Build last docker images successfully!'
 }
