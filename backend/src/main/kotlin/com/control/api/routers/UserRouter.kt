@@ -12,7 +12,12 @@ class UserRouter {
     @Bean
     fun userRouters(handler: UserHandler) = coRouter {
         accept(MediaType.APPLICATION_JSON).nest {
-            GET("/api/v1/user/{username}", handler::getUserByUsername)
+            GET("$BASE_URL/{username}", handler::getUserByUsername)
+            POST(BASE_URL, handler::createUser)
         }
+    }
+
+    companion object {
+        private const val BASE_URL = "/api/v1/user"
     }
 }

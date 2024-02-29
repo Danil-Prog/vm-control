@@ -17,9 +17,9 @@ class UserService(
             .orElseThrow { UserNotFoundException("Sorry, user not found: $username") }
     }
 
-    fun saveUser(user: User) {
+    fun saveUser(user: User): User {
         user.password = passwordEncoder.encode(user.password)
-        userRepository.save(user)
+        return userRepository.save(user)
     }
 
     fun deleteUserByUsername(username: String): User {
