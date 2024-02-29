@@ -1,4 +1,1 @@
-rootProject.name = "backend"
-
-include(":gateway", ":user-service", ":eureka-server")
-
+rootProject.name = 'backend'
