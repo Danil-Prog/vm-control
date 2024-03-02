@@ -14,53 +14,28 @@ services:
       - "5432:5432"
 
 # --------BACKEND_SERVICE--------
-  eureka-server:
-    container_name: eureka_server
-    image: vm-control/eureka-server
-    environment:
-      eureka.client.service-url.defaultZone: "http://eureka-server:8761/eureka"
-    ports:
-      - "8761:8761"
-    hostname: eureka-server
-    networks:
-      - vm-control
-    healthcheck:
-      test: "curl -f http://localhost:8761/eureka/apps"
-      interval: 2s
 
-  gateway:
-    container_name: backend_gateway
-    image: vm-control/gateway:latest
+  backend:
+    container_name: backend_service
+    image: vm-control/server:latest
     environment:
       gateway.jwt.secret: ${JWT_ACCESS_SECRET}
       gateway.jwt.refresh: ${JWT_REFRESH_SECRET}
       gateway.jwt.expiration_access_token_in_mills: ${JWT_EXPIRATION_ACCESS_TOKEN_IN_MILLS}
       gateway.jwt.expiration_refresh_token_in_mills: ${JWT_EXPIRATION_REFRESH_TOKEN_IN_MILLS}
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://psql_server:5432/${DB_NAME}"
+      SPRING_DATASOURCE_USERNAME: "${DB_USERNAME}"
+      SPRING_DATASOURCE_PASSWORD: "${DB_PASSWORD}"
     ports:
       - "8080:8080"
     networks:
       - vm-control
-    links:
-      - "eureka-server"
     depends_on:
-      eureka-server:
-        condition: service_healthy
-
-  user-service:
-    container_name: user-service
-    image: vm-control/user-service:latest
-    networks:
-      - vm-control
-    environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://psql_server:5432/${DB_NAME}"
-      SPRING_DATASOURCE_USERNAME: "${DB_USERNAME}"
-      SPRING_DATASOURCE_PASSWORD: "${DB_PASSWORD}"
-    depends_on:
-     - psql
+      - psql
     links:
       - "psql"
-      - "eureka-server"
     restart: always
+
 # -------------------------------
 
 networks:
