@@ -2,6 +2,7 @@ package com.control.api.service
 
 import kotlinx.coroutines.reactor.mono
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -12,8 +13,7 @@ typealias ApplicationUser = com.control.api.model.User
 
 @Service
 class ExternalUserDetailsService(
-    private val userService: UserService,
-    private val logger: Logger
+    private val userService: UserService
 ) : ReactiveUserDetailsService {
 
     override fun findByUsername(username: String?): Mono<UserDetails> = mono {
@@ -29,4 +29,8 @@ class ExternalUserDetailsService(
             .password(this.password)
             .roles(com.control.api.model.User.Role.DEFAULT.name)
             .build()
+
+    companion object {
+        private val logger = LoggerFactory.getLogger(this::class.java)
+    }
 }

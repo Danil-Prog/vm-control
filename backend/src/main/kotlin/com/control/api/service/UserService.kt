@@ -1,6 +1,6 @@
 package com.control.api.service
 
-import com.control.api.exception.UserNotFoundException
+import com.control.api.exception.http.UserNotFoundException
 import com.control.api.model.User
 import com.control.api.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -18,6 +18,7 @@ class UserService(
     }
 
     fun saveUser(user: User): User {
+        findByUsername(user.username!!)
         user.password = passwordEncoder.encode(user.password)
         return userRepository.save(user)
     }

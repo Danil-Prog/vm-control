@@ -1,10 +1,11 @@
 package com.control.api.handlers
 
-import com.control.api.exception.UnauthorizedRequestException
+import com.control.api.exception.http.UnauthorizedRequestException
 import com.control.api.response.AuthenticationResponse
 import com.control.api.service.JwtService
 import com.control.api.utils.HttpConstants.Companion.REFRESH_TOKEN
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseCookie
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
@@ -13,7 +14,7 @@ import org.springframework.web.reactive.function.server.bodyValueAndAwait
 import java.time.Duration
 
 @Component
-class AuthHandler(private val logger: Logger, private val jwtService: JwtService) {
+class AuthHandler(private val jwtService: JwtService) {
 
     suspend fun refreshAuthToken(request: ServerRequest): ServerResponse {
         val refresh = request.cookies().getFirst(REFRESH_TOKEN)?.value
@@ -47,5 +48,9 @@ class AuthHandler(private val logger: Logger, private val jwtService: JwtService
 
         logger.error("Refresh token is not valid")
         return ServerResponse.badRequest().bodyValueAndAwait("Error update refresh token")
+    }
+
+    companion object {
+        private val logger = LoggerFactory.getLogger(this::class.java)
     }
 }
