@@ -1,7 +1,7 @@
 // components/ThemeToggle.tsx
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import ThemeStore from '~/core/stores/ThemeStore';
+import ThemeStore from '~/core/stores/Theme.store';
 import { inject } from 'mobx-react';
 import styles from './ThemeToggle.module.scss';
 import { Moon } from '~/components/icons/Moon';

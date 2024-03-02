@@ -2,6 +2,7 @@ import $api from '~/core/services/http';
 import { AuthResponse } from '~/core/models/response/AuthResponse';
 import { ROUTE_PREFIX } from '~/core/config/api.config';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 interface IHomePage {
 
@@ -10,8 +11,12 @@ interface IHomePage {
 const HomePage: React.FC<IHomePage> = () => {
   React.useEffect(() => {
   }, [localStorage.getItem('token')]);
-  const handleClick = () => {
-    $api.get<AuthResponse>(`${ROUTE_PREFIX}/user/ew`);
+  const handleClick = async () => {
+    try {
+      await $api.get<AuthResponse>(`${ROUTE_PREFIX}/user/test`);
+    } catch (e: any) {
+      toast.error(`${e?.response?.data?.message}`);
+    }
   };
 
   return (

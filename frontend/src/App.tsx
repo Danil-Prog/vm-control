@@ -47,14 +47,14 @@ const App: React.FC<IAppProps> = observer(({ authStore, themeStore }) => {
               color: Colors.text_light,
               background: Colors.background
             },
-            position: 'bottom-right'
+            position: 'top-center'
           },
           error: {
             style: {
               color: Colors.text_light,
               background: Colors.background
             },
-            position: 'bottom-right'
+            position: 'top-center'
           }
         }}
       />
