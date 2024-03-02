@@ -1,7 +1,7 @@
 package com.control.api.config.handler
 
 import com.control.api.exception.HttpExceptionFactory.unauthorized
-import com.control.api.exception.UnauthorizedRequestException
+import com.control.api.exception.http.UnauthorizedRequestException
 import com.control.api.response.AuthenticationResponse
 import com.control.api.service.JwtService
 import com.control.api.utils.HttpConstants.Companion.REFRESH_TOKEN
