@@ -1,6 +1,7 @@
 .container {
   display: flex;
   align-items: center;
+  flex: 1;
   gap: 10px;
 }
 
@@ -9,7 +10,6 @@
   display: inline-block;
   width: 40px;
   height: 23px;
-
 }
 
 .switch input {

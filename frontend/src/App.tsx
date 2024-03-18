@@ -61,7 +61,11 @@ const App: React.FC<IAppProps> = observer(({ authStore, themeStore }) => {
       <BrowserRouter>
         <Routes>
           <Route path={'/'} element={<StaticElements />}>
-            <Route path={'/'} element={<PrivateRoute><HomePage /></PrivateRoute>} />
+            <Route path={'/'} element={
+              // <PrivateRoute>
+              <HomePage />
+              // </PrivateRoute>
+            } />
           </Route>
           <Route path={'/login'} element={<AuthPage />} />
           <Route path={'*'} element={<Navigate to={'/'} />} />

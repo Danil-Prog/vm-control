@@ -1,0 +1,125 @@
+@keyframes heightZeroToFull {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.menuContainer {
+  background-color: var(--background);
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 10dvw;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 5px;
+  border-radius: 5px;
+  animation: heightZeroToFull .5s;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  p {
+    text-align: center;
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  label {
+    justify-content: right;
+  }
+
+  .menuItem {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+    gap: 10px;
+    max-height: 40px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-self: flex-start;
+    }
+
+    p {
+      flex: 5;
+      display: flex;
+    }
+
+    label {
+      display: flex;
+      justify-self: flex-end;
+    }
+  }
+
+  .version {
+    padding: 10px 0;
+    margin: 0;
+    flex: 1;
+  }
+}
+
+.logout {
+  cursor: pointer;
+  display: flex;
+
+  svg {
+    fill: var(--text-dark);
+
+    &:active {
+      fill: var(--background);
+    }
+  }
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .logout {
+    svg {
+      height: 1em;
+    }
+  }
+}
+
+/* Стили для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .logout {
+    svg {
+      height: 1.5em;
+    }
+  }
+}
+
+/* Стили для настольных компьютеров */
+@media (min-width: 1025px) {
+  .logout {
+    svg {
+      height: 2.5em;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .logout {
+    svg {
+      height: 3em;
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .logout {
+    svg {
+      height: 3.5em;
+    }
+  }
+}
