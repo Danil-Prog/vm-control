@@ -1,3 +1,12 @@
+@keyframes heightZeroToFull {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .menuContainer {
   background-color: var(--background);
   position: absolute;
@@ -6,17 +15,62 @@
   width: 10dvw;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 3px;
   padding: 5px;
   border-radius: 5px;
+  animation: heightZeroToFull .5s;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  p {
+    text-align: center;
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  label {
+    justify-content: right;
+  }
+
+  .menuItem {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: space-between;
+    gap: 10px;
+    max-height: 40px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-self: flex-start;
+    }
+
+    p {
+      flex: 5;
+      display: flex;
+    }
+
+    label {
+      display: flex;
+      justify-self: flex-end;
+    }
+  }
+
+  .version {
+    padding: 10px 0;
+    margin: 0;
+    flex: 1;
+  }
 }
 
 .logout {
   cursor: pointer;
   display: flex;
-  flex: 1;
-  justify-content: space-between;
-  align-items: center;
 
   svg {
     fill: var(--text-dark);

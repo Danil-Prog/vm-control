@@ -32,13 +32,13 @@ const ThemeToggle: React.FC<IThemeToggle> = ({ themeStore }) => {
 
   return (
     <div className={styles.container}>
-      <IconSun />
+      <IconMoon />
+      <p>Dark mode</p>
       <label className={styles.switch}>
         <input type="checkbox" onChange={handleToggle}
                checked={isChecked} />
         <span className={[styles.slider, styles.round].join(' ')}></span>
       </label>
-      <IconMoon />
     </div>
   );
 };
