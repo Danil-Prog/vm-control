@@ -1,0 +1,71 @@
+.menuContainer {
+  background-color: var(--background);
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 10dvw;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.logout {
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+
+  svg {
+    fill: var(--text-dark);
+
+    &:active {
+      fill: var(--background);
+    }
+  }
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .logout {
+    svg {
+      height: 1em;
+    }
+  }
+}
+
+/* Стили для планшетов */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .logout {
+    svg {
+      height: 1.5em;
+    }
+  }
+}
+
+/* Стили для настольных компьютеров */
+@media (min-width: 1025px) {
+  .logout {
+    svg {
+      height: 2.5em;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .logout {
+    svg {
+      height: 3em;
+    }
+  }
+}
+
+@media (min-width: 1600px) {
+  .logout {
+    svg {
+      height: 3.5em;
+    }
+  }
+}

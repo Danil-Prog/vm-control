@@ -21,10 +21,10 @@ $api.interceptors.request.use((config) => {
 });
 
 $api.interceptors.response.use((config) => {
-  console.log(`<---11111 ${config.config.url}`, config);
+  console.log(`<--- ${config.config.url}`, config);
   return config;
 }, async (error) => {
-  console.error(`<---2222 ${error.config.url}`, error);
+  console.error(`<--- ${error.config.url}`, error);
   const originalRequest = error.config;
   if (error.response.status == 401 && error.config && !error.config._isRetry) {
     originalRequest._isRetry = true;

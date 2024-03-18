@@ -24,6 +24,7 @@
   "scripts": {
     "start": "git pull && npm install --legacy-peer-deps && webpack serve --open",
     "build": "webpack --config webpack.config.js --mode production",
+    "postbuild": "echo REACT_APP_VERSION=$(node -p \"require('./package.json').version\") > .env",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tscheck": "tsc"
